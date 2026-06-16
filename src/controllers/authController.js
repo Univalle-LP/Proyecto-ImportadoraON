@@ -51,7 +51,7 @@ async function auth(req, res) {
       }
 
       return res.render('auth/login', {
-        error: 'Usuario no registrado'
+        error: 'Correo o contraseña incorrectos'
       });
     }
 
@@ -72,7 +72,7 @@ async function auth(req, res) {
       }
 
       return res.render('auth/login', {
-        error: `Contraseña incorrecta. Intento ${req.session.loginAttempts} de 5.`
+        error: 'Correo o contraseña incorrectos.'
       });
     }
 
