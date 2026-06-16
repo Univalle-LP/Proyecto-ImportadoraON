@@ -127,6 +127,7 @@
       <div class="p-6">
         <h3 class="text-lg font-bold text-black mb-4">Agregar Nuevo Cargo</h3>
         <form action="/admin/employees/add-cargo" method="POST" class="space-y-4">
+          <input type="hidden" name="_csrf" value="{{csrfToken}}">
           <div>
             <label class="block text-sm font-medium text-black mb-1">Nombre del Cargo</label>
             <input type="text" name="nombre" required
@@ -168,6 +169,7 @@
     {{/if}}
 
     <form action="/admin/employees/add" method="POST" enctype="multipart/form-data" class="space-y-6">
+      <input type="hidden" name="_csrf" value="{{csrfToken}}">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         
         <div>

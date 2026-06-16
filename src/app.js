@@ -5,6 +5,7 @@ const mysql = require('mysql2');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const flash = require('connect-flash');
+const csrf = require('csurf');
 const path = require('path');
 const dotenv = require('dotenv');
 
@@ -37,6 +38,9 @@ app.use(session({
     cookie: { maxAge: 24 * 60 * 60 * 1000 } // 1 día
 }));
 
+// Protección CSRF para formularios POST
+app.use(csrf());
+
 app.use(flash());
 
 // Conexión a MySQL
@@ -57,10 +61,11 @@ app.use(myconnection(mysql, {
 }, 'single'));
 
 
-// Middleware para pasar mensajes flash a las vistas
+// Middleware para pasar mensajes flash y CSRF a las vistas
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
+  res.locals.csrfToken = req.csrfToken();
   next();
 });
 
