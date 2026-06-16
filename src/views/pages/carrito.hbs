@@ -28,6 +28,7 @@
     <p class="text-xl font-semibold text-right mb-6">Total: Bs. {{total}}</p>
 
     <form action="/carrito/confirmar" method="POST" class="text-right">
+      <input type="hidden" name="_csrf" value="{{csrfToken}}">
       <button type="submit" class="btn-gold py-2 px-6 rounded-full">Confirmar Compra</button>
     </form>
 

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
+const crypto = require('crypto');
 const {
   saveCategory,
   listProducts,
@@ -16,7 +17,10 @@ const {
 const storage = multer.diskStorage({
   destination: path.join(__dirname, '../public/image/products'),
   filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
+    // Generar nombre aleatorio seguro en el servidor
+    const randomName = crypto.randomBytes(16).toString('hex');
+    const ext = path.extname(file.originalname).toLowerCase();
+    cb(null, randomName + ext);
   }
 });
 const upload = multer({ 

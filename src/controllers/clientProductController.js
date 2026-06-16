@@ -1,8 +1,20 @@
 const path = require('path');
 
+function sanitizeSearchQuery(searchQuery) {
+  if (typeof searchQuery !== 'string') return '';
+  const trimmed = searchQuery.trim().slice(0, 100);
+  return trimmed.replace(/[^0-9A-Za-zÁÉÍÓÚáéíóúÑñÜü\s\-_.]/g, '');
+}
+
+function escapeLikeWildcards(value) {
+  return value.replace(/([%_\\])/g, '\\$1');
+}
+
 function listClientProducts(req, res) {
-  let searchQuery = req.query.search || '';  
-  const searchParam = `%${searchQuery}%`;    
+  const rawSearchQuery = req.query.search || '';
+  const searchQuery = sanitizeSearchQuery(rawSearchQuery);
+  const escapedSearchQuery = escapeLikeWildcards(searchQuery);
+  const searchParam = `%${escapedSearchQuery}%`;
 
   req.getConnection((err, conn) => {
     if (err) {

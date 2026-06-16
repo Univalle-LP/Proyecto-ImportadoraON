@@ -58,6 +58,7 @@
           </div>
           <!-- Botón agregar al carrito -->
           <form action="/carrito/agregar" method="POST" class="mt-2">
+            <input type="hidden" name="_csrf" value="{{csrfToken}}">
             <input type="hidden" name="producto_id" value="{{cod_producto}}" />
             <button class="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold py-2 px-4 rounded-full transition duration-200" type="submit" aria-label="Agregar {{nombre}} al carrito">
               Agregar al Carrito

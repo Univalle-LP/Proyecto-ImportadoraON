@@ -5,6 +5,7 @@
     <h2 class="text-2xl font-bold mb-6 text-[#333333] border-b pb-2 border-[#E8EBE8]">Editar Producto</h2>
 
     <form action="/admin/products/edit/{{producto.cod_producto}}" method="POST" enctype="multipart/form-data" class="space-y-6">
+      <input type="hidden" name="_csrf" value="{{csrfToken}}">
       <!-- Nombre del producto -->
       <div>
         <label class="block text-sm font-medium text-[#333333] mb-1">Nombre del Producto</label>

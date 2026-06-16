@@ -11,6 +11,7 @@
         <div class="bg-black p-6 rounded-lg shadow-lg max-w-md w-full">
           <h3 class="text-xl font-bold mb-4">Agregar Nueva Categoría</h3>
           <form action="/admin/products/add-category" method="POST" class="space-y-4">
+            <input type="hidden" name="_csrf" value="{{csrfToken}}">
             <div>
               <label class="block text-black">Nombre de la Categoría</label>
               <input type="text" name="nombre" required 
@@ -33,6 +34,7 @@
     <h2 class="text-2xl font-bold mb-6 text-[#333333] border-b pb-2 border-[#E8EBE8]">Agregar Producto</h2>
 
     <form action="/admin/products/add" method="POST" enctype="multipart/form-data" class="space-y-6">
+      <input type="hidden" name="_csrf" value="{{csrfToken}}">
       <!-- Nombre del producto -->
       <div>
         <label class="block text-sm font-medium text-[#333333] mb-1">Nombre del Producto</label>

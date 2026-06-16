@@ -5,7 +5,12 @@ const mysql = require('mysql2');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const flash = require('connect-flash');
+const csrf = require('csurf');
 const path = require('path');
+const dotenv = require('dotenv');
+
+// Cargar variables de entorno desde .env
+dotenv.config();
 
 const authRoutes = require('./routes/authRoutes'); 
 const employeeRoutes = require('./routes/employeeRoutes');
@@ -27,11 +32,19 @@ app.use(bodyParser.json());
 
 // Configuración de sesión
 app.use(session({
-    secret: 'tuClaveSecretaSegura123',
+    secret: process.env.SESSION_SECRET || 'tuClaveSecretaSegura123',
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 24 * 60 * 60 * 1000 } // 1 día
+    cookie: { 
+        maxAge: 24 * 60 * 60 * 1000, // 1 día
+        httpOnly: true, // Previene acceso desde JavaScript (XSS)
+        secure: process.env.NODE_ENV === 'production', // Solo HTTPS en producción
+        sameSite: 'strict' // Previene CSRF
+    }
 }));
+
+// Protección CSRF para formularios POST
+app.use(csrf());
 
 app.use(flash());
 
@@ -45,18 +58,19 @@ app.use(flash());
 }, 'single'));*/
 
 app.use(myconnection(mysql, {
-    host: '127.0.0.1',
-    user: 'root',
-    password: '12811041',
-    port: 3306,
-    database: 'importadoraon'
+  host: process.env.DB_HOST || '127.0.0.1',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || '',
+  port: process.env.DB_PORT || 3306,
+  database: process.env.DB_NAME || 'importadoraon'
 }, 'single'));
 
 
-// Middleware para pasar mensajes flash a las vistas
+// Middleware para pasar mensajes flash y CSRF a las vistas
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
+  res.locals.csrfToken = req.csrfToken();
   next();
 });
 
