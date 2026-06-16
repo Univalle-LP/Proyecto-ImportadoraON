@@ -1,0 +1,79 @@
+{{!< ../layouts/main}}
+
+<div class="max-w-7xl mx-auto p-6 bg-white text-gray-800 rounded-lg shadow-md">
+
+  <!-- Barra de búsqueda y botones -->
+  <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-8 space-y-4 md:space-y-0">
+    <!-- Formulario de búsqueda -->
+    <form action="/productos" method="GET" class="flex w-full md:w-1/3 shadow-sm">
+      <input 
+        type="text" 
+        name="search" 
+        value="{{searchQuery}}" 
+        placeholder="Buscar productos..." 
+        class="flex-grow p-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        aria-label="Buscar productos"
+      />
+      <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-r-lg font-semibold transition duration-200">
+        Buscar
+      </button>
+    </form>
+
+    <!-- Botones adicionales -->
+    <div class="flex space-x-3 justify-center md:justify-end">
+      {{#if nombre}}
+        {{#unless esCliente}}
+          <a href="/register/client" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-full shadow-md transition duration-200">
+            Registrarse como Cliente
+          </a>
+        {{/unless}}
+      {{/if}}
+      <a href="/carrito" class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-2 px-4 rounded-full shadow-md transition duration-200">
+        Ver Carrito
+      </a>
+    </div>
+  </div>
+
+  <!-- Tarjetas de productos -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    {{#each productos}}
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300 flex flex-col">
+        <!-- Imagen del producto -->
+        {{#if foto}}
+          <img src="/images/products/{{foto}}" alt="Imagen de {{nombre}}" class="w-full h-48 object-cover"/>
+        {{else}}
+          <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-400 text-sm font-semibold">
+            Sin imagen disponible
+          </div>
+        {{/if}}
+        <!-- Detalles del producto -->
+        <div class="p-4 flex flex-col flex-grow justify-between">
+          <div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">{{nombre}}</h3>
+            <p class="text-gray-600 mb-2">{{descripcion}}</p>
+            {{#if categoria_nombre}}
+              <p class="text-sm text-gray-500 mb-4">Categoría: {{categoria_nombre}}</p>
+            {{/if}}
+            <p class="text-yellow-500 font-bold text-lg mb-4">Bs. {{precio}}</p>
+          </div>
+          <!-- Botón agregar al carrito -->
+          <form action="/carrito/agregar" method="POST" class="mt-2">
+            <input type="hidden" name="producto_id" value="{{cod_producto}}" />
+            <button class="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold py-2 px-4 rounded-full transition duration-200" type="submit" aria-label="Agregar {{nombre}} al carrito">
+              Agregar al Carrito
+            </button>
+          </form>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+
+  <!-- Mensajes de resultado -->
+  <div class="mt-8 text-center">
+    {{#if productos.length}}
+      <p class="text-gray-700 text-sm">Se han encontrado {{productos.length}} productos.</p>
+    {{else}}
+      <p class="text-blue-500 text-sm font-semibold">No se encontraron productos.</p>
+    {{/if}}
+  </div>
+</div>

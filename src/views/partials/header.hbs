@@ -1,0 +1,25 @@
+<header class="bg-gradient-to-r from-red-700 to-red-900 shadow-lg sticky top-0 z-40">
+    <div class="container mx-auto px-6 py-4">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center">
+                <a href="/" class="flex items-center">
+                    <div class="bg-white p-2 rounded-full mr-3 shadow-md">
+                        <i class="fas fa-box-open text-2xl text-red-600"></i>
+                    </div>
+                    <span class="text-white text-2xl font-bold">Importadora<span class="text-yellow-300">ON</span></span>
+                </a>
+            </div>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="/" class="nav-item text-white hover:text-yellow-200 transition-colors font-medium {{#if active.home}}active-section{{/if}}">Inicio</a>
+                <a href="/nosotros" class="nav-item text-white hover:text-yellow-200 transition-colors font-medium {{#if active.nosotros}}active-section{{/if}}">Sobre Nosotros</a>
+                <a href="/productos" class="nav-item text-white hover:text-yellow-200 transition-colors font-medium {{#if active.productos}}active-section{{/if}}">Productos</a>
+                <a href="/sucursales" class="nav-item text-white hover:text-yellow-200 transition-colors font-medium {{#if active.sucursales}}active-section{{/if}}">Sucursales</a>
+                {{#if user}}
+                    <a href="/logout" class="text-white hover:text-yellow-200 transition-colors font-medium">Cerrar Sesión</a>
+                {{else}}
+                    <a href="/login" class="text-white hover:text-yellow-200 transition-colors font-medium">Iniciar Sesión</a>
+                {{/if}}
+            </nav>
+        </div>
+    </div>
+</header>

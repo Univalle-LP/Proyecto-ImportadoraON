@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImportadoraON - Registro</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary: #d10000;
+            --primary-dark: #a00000;
+            --primary-light: #ff4d4d;
+            --secondary: #333333;
+            --accent: #ffd700;
+            --light: #f8f8f8;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #fff5f5 0%, #fff 100%);
+            min-height: 100vh;
+        }
+        
+        .header-gradient {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+        }
+        
+        .footer-gradient {
+            background: linear-gradient(90deg, var(--secondary) 0%, #222 100%);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(209, 0, 0, 0.3);
+        }
+        
+        .input-focus:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(209, 0, 0, 0.1);
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <main class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="block mx-auto my-12 p-8 bg-white w-full md:w-1/3 rounded-xl shadow-2xl border border-gray-100">
+            <div class="flex flex-col items-center mb-6">
+                <div class="bg-red-600 p-4 rounded-full mb-4 shadow-lg floating">
+                    <i class="fas fa-user-plus text-3xl text-white"></i>
+                </div>
+                <h1 class="text-3xl font-bold text-center text-gray-800">CREAR CUENTA</h1>
+                <p class="text-gray-600 mt-2">Regístrate para acceder a tu cuenta</p>
+            </div>
+
+            <form action="/register" method="POST" class="mt-4">
+
+    <div class="mb-4">
+        <label class="block text-gray-700 mb-2 font-medium">Nombre de Usuario</label>
+        <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <i class="fas fa-user text-red-500"></i>
+            </div>
+            <input 
+                type="text" name="usuario" placeholder="Tu nombre de usuario"
+                class="pl-10 w-full p-3 bg-white border border-gray-200 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent placeholder-gray-400 transition-all input-focus"
+                required
+                minlength="3"
+                maxlength="100"
+            >
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <label class="block text-gray-700 mb-2 font-medium">Correo Electrónico</label>
+        <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <i class="fas fa-envelope text-red-500"></i>
+            </div>
+            <input 
+                type="email" name="email" placeholder="juanperez@ejemplo.com"
+                class="pl-10 w-full p-3 bg-white border border-gray-200 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent placeholder-gray-400 transition-all input-focus"
+                required
+                maxlength="100"
+            >
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <label class="block text-gray-700 mb-2 font-medium">Contraseña</label>
+        <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <i class="fas fa-lock text-red-500"></i>
+            </div>
+            <input 
+                type="password" name="password" id="password" placeholder="Mínimo 8 caracteres"
+                class="pl-10 w-full p-3 bg-white border border-gray-200 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent placeholder-gray-400 transition-all input-focus"
+                required
+                minlength="8"
+                maxlength="50"
+            >
+            <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center" onclick="togglePassword('password')">
+                <i class="fas fa-eye-slash text-red-500/50 hover:text-red-500"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="flex items-center mb-6">
+        <input 
+            type="checkbox" 
+            id="terms" 
+            name="terms" 
+            class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded focus:ring-red-500 focus:ring-2"
+            required
+        >
+        <label for="terms" class="ml-2 text-sm text-gray-600">
+            Acepto los <a href="#" class="text-red-600 hover:text-red-800 font-medium">Términos y Condiciones</a>
+        </label>
+    </div>
+
+    <!-- Botón de Registro -->
+    <button 
+        type="submit"
+        class="w-full btn-primary text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center shadow-md hover:shadow-lg"
+    >
+        <i class="fas fa-user-plus mr-2"></i> REGISTRARSE
+    </button>
+
+    {{#if error}}
+    <div class="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg flex items-center">
+        <i class="fas fa-exclamation-circle mr-2 text-red-500"></i>
+        <span>{{error}}</span>
+    </div>
+    {{/if}}
+
+    <div class="text-center mt-6">
+        <a href="/login" class="text-red-600 hover:text-red-800 text-sm transition-colors font-medium">
+            <i class="fas fa-sign-in-alt mr-1"></i> ¿Ya tienes cuenta? Inicia sesión
+        </a>
+    </div>
+    </form>
+
+        </div>
+    </main>
+    <script>
+    function togglePassword(id) {
+        const input = document.getElementById(id);
+        const icon = input.nextElementSibling.querySelector('i');
+        if (input.type === "password") {
+            input.type = "text";
+            icon.classList.replace('fa-eye-slash', 'fa-eye');
+        } else {
+            input.type = "password";
+            icon.classList.replace('fa-eye', 'fa-eye-slash');
+        }
+    }
+    
+    </script>
+
+</body>
+
+    

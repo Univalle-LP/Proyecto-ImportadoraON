@@ -1,0 +1,181 @@
+/* ----- Paleta de Colores ----- */
+:root {
+    --blanco-claro: #F6F6F6;
+    --gris-claro: #E8E8E8;
+    --gris-oscuro: #333333;
+    --rojo-oscuro: #990100;
+    --rojo-medio: #B90504;
+    --beige-suave: #F2E1B3;
+    --amarillo-dorado: #FFD700;
+    --negro-suave: #222222;
+    --gris-calido: #D1D1D1;
+}
+
+/* ----- Colores de Fondo, Texto y Elementos ----- */
+body {
+    background-color: var(--blanco-claro);
+    color: var(--gris-oscuro);
+}
+
+.header-gradient {
+    background: linear-gradient(90deg, var(--rojo-medio) 0%, var(--rojo-oscuro) 100%);
+}
+
+.sidebar {
+    background-color: var(--gris-oscuro);
+    color: var(--blanco-claro);
+}
+
+.sidebar a {
+    color: var(--blanco-claro);
+}
+
+.sidebar a:hover {
+    background-color: var(--rojo-oscuro);
+}
+
+.btn-primary {
+    background: var(--rojo-medio);
+    color: var(--blanco-claro);
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: var(--rojo-oscuro);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(209, 0, 0, 0.3);
+}
+
+.footer-gradient {
+    background: linear-gradient(90deg, var(--gris-oscuro) 0%, var(--negro-suave) 100%);
+}
+
+.input-focus:focus {
+    border-color: var(--rojo-medio);
+    box-shadow: 0 0 0 3px rgba(209, 0, 0, 0.1);
+}
+
+/* ----- Colores Complementarios ----- */
+.card-highlight {
+    background-color: var(--beige-suave);
+}
+
+.btn-gold {
+    background: linear-gradient(to right, var(--amarillo-dorado), var(--rojo-medio));
+    color: var(--negro-suave);
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn-gold:hover {
+    background: linear-gradient(to right, var(--rojo-medio), var(--amarillo-dorado));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(255, 215, 0, 0.2);
+}
+
+.text-secondary {
+    color: var(--gris-calido);
+}
+
+.text-primary {
+    color: var(--rojo-oscuro);
+}
+
+.card-hover:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+/* ----- Animaciones y Transiciones (sin cambios) ----- */
+.floating {
+    animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Transiciones suaves para botones */
+.transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ----- Ajustes para inputs y bordes ----- */
+input, textarea, select {
+    border-radius: 5px;
+    background-color: var(--gris-claro);
+    border: 1px solid var(--gris-oscuro);
+    padding: 10px;
+    color: var(--gris-oscuro);
+}
+
+/* ----- Sección de Cards, Botones y más ---- */
+.card {
+    background-color: var(--blanco-claro);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    color: var(--gris-oscuro);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.card-body {
+    color: var(--gris-calido);
+}
+
+.card-footer {
+    background-color: var(--gris-claro);
+}
+
+/* ----- Animaciones para elementos como menú y botones ----- */
+.menu-slide-in {
+    animation: slide-in 0.3s ease-out;
+}
+
+@keyframes slide-in {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* ----- Títulos ----- */
+h1, h2, h3 {
+    color: var(--rojo-oscuro);
+}
+
+h4, h5, h6 {
+    color: var(--gris-oscuro);
+}
+
+
+header {
+    background: var(--rojo-medio);
+    color: var(--blanco-claro);
+}
+
+footer {
+    background: var(--gris-oscuro);
+    color: var(--blanco-claro);
+    text-align: center;
+    padding: 20px 0;
+}
+
+footer a {
+    color: var(--amarillo-dorado);
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+.footer-gradient {
+  background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+}

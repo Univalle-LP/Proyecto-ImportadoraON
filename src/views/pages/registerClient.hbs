@@ -1,0 +1,62 @@
+{{!< ../layouts/main}}
+
+<div class="max-w-xl mx-auto bg-white rounded-lg shadow p-6 mt-8 text-black">
+  <h2 class="text-2xl font-bold mb-4">Registro como Cliente</h2>
+  {{#if error}}
+    <div class="bg-red-100 text-red-700 p-2 rounded mb-4">{{error}}</div>
+  {{/if}}
+  <form action="/register/client" method="POST">
+    <input type="hidden" name="usuario_id" value="{{cod_registro}}" />
+    <div class="mb-2">
+      <label>Correo electrónico:</label>
+      <input type="email" value="{{email}}" disabled class="w-full border rounded p-2 bg-gray-100" placeholder="Se enlazara con su correo inicial" />
+    </div>
+    <div class="mb-2">
+      <label>Nombres:</label>
+      <input type="text" name="nombres" required class="w-full border rounded p-2" />
+    </div>
+    <div class="mb-2">
+      <label>Apellidos:</label>
+      <input type="text" name="apellidos" required class="w-full border rounded p-2" />
+    </div>
+    <div class="mb-2">
+      <label>CI o NIT:</label>
+      <input type="text" name="ci_o_nit" required class="w-full border rounded p-2" />
+    </div>
+    <div class="mb-2">
+      <label>Celular:</label>
+      <input type="text" name="celular" required class="w-full border rounded p-2" />
+    </div>
+    <div class="mb-2">
+      <label>Fecha de nacimiento:</label>
+      <input type="date" name="fecha_nacimiento" required class="w-full border rounded p-2" />
+    </div>
+    <div class="mb-2">
+      <label>Género:</label>
+      <select name="genero_id" required class="w-full border rounded p-2">
+        <option value="">Seleccione</option>
+        <option value="1">Masculino</option>
+        <option value="2">Femenino</option>
+      </select>
+    </div>
+    <hr class="my-4" />
+    <h3 class="font-semibold mb-2">Dirección principal</h3>
+    <div class="mb-2">
+      <label>Dirección:</label>
+      <input type="text" name="direccion" required class="w-full border rounded p-2" />
+    </div>
+    <div class="mb-2">
+      <label>Ciudad:</label>
+      <input type="text" name="ciudad" class="w-full border rounded p-2" />
+    </div>
+    <div class="mb-2">
+      <label>Código Postal:</label>
+      <input type="text" name="codigo_postal" class="w-full border rounded p-2" />
+    </div>
+    <div class="mb-2">
+      <label>Referencia:</label>
+      <input type="text" name="referencia" class="w-full border rounded p-2" />
+    </div>
+    <button type="submit" class="btn-gold w-full mt-4 py-2 rounded-full">Registrar</button>
+  </form>
+</div>

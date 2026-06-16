@@ -1,0 +1,51 @@
+{{!< ../layouts/main}}
+
+<div class="p-6 bg-black rounded shadow text-white">
+  <a href="/admin/dashboard" class="mt-4 inline-block bg-green-600 hover:bg-green-700 transition text-white py-2 px-4 rounded">
+    ← Volver al Dashboard
+  </a>
+
+  <h2 class="text-2xl font-bold my-6 border-b border-gray-600 pb-2">Lista de Productos</h2>
+
+  <div class="overflow-x-auto">
+    <table class="min-w-full table-auto border-collapse border border-gray-700">
+      <thead>
+        <tr class="bg-gray-800 text-left text-sm uppercase text-gray-300">
+          <th class="border border-gray-600 px-4 py-2">Imagen</th>
+          <th class="border border-gray-600 px-4 py-2">Nombre</th>
+          <th class="border border-gray-600 px-4 py-2">Descripción</th>
+          <th class="border border-gray-600 px-4 py-2">Precio</th>
+          <th class="border border-gray-600 px-4 py-2">Stock</th>
+          <th class="border border-gray-600 px-4 py-2">Categoría</th>
+          <th class="border border-gray-600 px-4 py-2">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each productos}}
+          <tr class="bg-gray-900 even:bg-gray-800">
+            <td class="border border-gray-700 px-4 py-2">
+              {{#if foto}}
+                <img src="/images/products/{{foto}}" alt="Foto de {{nombre}}" class="w-12 h-12 object-cover rounded-full mx-auto">
+              {{else}}
+                <span class="text-gray-400 italic block text-center">Sin foto</span>
+              {{/if}}
+            </td>
+            <td class="border border-gray-700 px-4 py-2 align-middle">{{nombre}}</td>
+            <td class="border border-gray-700 px-4 py-2 align-middle">{{descripcion}}</td>
+            <td class="border border-gray-700 px-4 py-2 align-middle">${{precio}}</td>
+            <td class="border border-gray-700 px-4 py-2 align-middle">{{stock}}</td>
+            <td class="border border-gray-700 px-4 py-2 align-middle">{{categoria_nombre}}</td>
+            <td class="border border-gray-700 px-4 py-2 align-middle whitespace-nowrap">
+              <a href="/admin/products/edit/{{cod_producto}}" class="text-blue-400 hover:underline mr-3" aria-label="Editar {{nombre}}">Editar</a>
+              <a href="/admin/products/delete/{{cod_producto}}" class="text-red-500 hover:underline" onclick="return confirm('¿Estás seguro de que quieres eliminar este producto?')" aria-label="Eliminar {{nombre}}">Eliminar</a>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  <a href="/admin/products/add" class="mt-6 inline-block bg-green-600 hover:bg-green-700 transition text-white py-3 px-6 rounded font-semibold">
+    + Agregar Nuevo Producto
+  </a>
+</div>
