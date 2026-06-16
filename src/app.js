@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 
 // Configuración de sesión
 app.use(session({
-    secret: 'tuClaveSecretaSegura123',
+    secret: process.env.SESSION_SECRET || 'tuClaveSecretaSegura123',
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: 24 * 60 * 60 * 1000 } // 1 día
