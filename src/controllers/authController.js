@@ -120,6 +120,15 @@ function register(req, res) {
 async function storeUser(req, res) {
   const data = req.body;
 
+  // Validación de nombre de usuario
+  const usuarioRegex = /^[a-zA-Z0-9_]{4,20}$/;
+
+  if (!usuarioRegex.test(data.usuario)) {
+    return res.render('auth/register', {
+      error: 'El nombre de usuario debe tener entre 4 y 20 caracteres y solo puede contener letras, números y guion bajo (_).'
+    });
+  }
+
   // Validación de formato de correo
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
