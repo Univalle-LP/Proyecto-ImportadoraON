@@ -6,6 +6,10 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const path = require('path');
+const dotenv = require('dotenv');
+
+// Cargar variables de entorno desde .env
+dotenv.config();
 
 const authRoutes = require('./routes/authRoutes'); 
 const employeeRoutes = require('./routes/employeeRoutes');
@@ -45,11 +49,11 @@ app.use(flash());
 }, 'single'));*/
 
 app.use(myconnection(mysql, {
-    host: '127.0.0.1',
-    user: 'root',
-    password: '12811041',
-    port: 3306,
-    database: 'importadoraon'
+  host: process.env.DB_HOST || '127.0.0.1',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || '',
+  port: process.env.DB_PORT || 3306,
+  database: process.env.DB_NAME || 'importadoraon'
 }, 'single'));
 
 
