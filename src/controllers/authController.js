@@ -32,14 +32,14 @@ async function auth(req, res) {
     const usuarios = await query(sql, [data.email]);
 
     if (usuarios.length === 0) {
-      return res.render('auth/login', { error: 'Usuario no registrado' });
+      return res.render('auth/login', { error: 'Email o contraseña inválidos' });
     }
 
     const usuario = usuarios[0];
     const match = await bcrypt.compare(data.password, usuario.password);
 
     if (!match) {
-      return res.render('auth/login', { error: 'Contraseña incorrecta' });
+      return res.render('auth/login', { error: 'Email o contraseña inválidos' });
     }
 
     const clienteResult = await query('SELECT cod_cliente FROM CLIENTE WHERE usuario_id = ?', [usuario.cod_registro]);
