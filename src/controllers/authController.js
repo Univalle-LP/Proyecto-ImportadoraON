@@ -12,6 +12,17 @@ function login(req, res) {
 async function auth(req, res) {
   const data = req.body;
 
+  // Verificar si el usuario está bloqueado
+  if (req.session.lockUntil && req.session.lockUntil > Date.now()) {
+    const minutosRestantes = Math.ceil(
+      (req.session.lockUntil - Date.now()) / 60000
+    );
+
+    return res.render('auth/login', {
+      error: `Demasiados intentos fallidos. Intente nuevamente en ${minutosRestantes} minuto(s).`
+    });
+  }
+
   if (!data.email || !data.password) {
     return res.render('auth/login', { error: 'Por favor ingrese email y contraseña' });
   }
@@ -32,14 +43,37 @@ async function auth(req, res) {
     const usuarios = await query(sql, [data.email]);
 
     if (usuarios.length === 0) {
-      return res.render('auth/login', { error: 'Usuario no registrado' });
+      req.session.loginAttempts =
+        (req.session.loginAttempts || 0) + 1;
+
+      if (req.session.loginAttempts >= 5) {
+        req.session.lockUntil = Date.now() + (5 * 60 * 1000);
+      }
+
+      return res.render('auth/login', {
+        error: 'Usuario no registrado'
+      });
     }
 
     const usuario = usuarios[0];
     const match = await bcrypt.compare(data.password, usuario.password);
 
     if (!match) {
-      return res.render('auth/login', { error: 'Contraseña incorrecta' });
+
+      req.session.loginAttempts =
+        (req.session.loginAttempts || 0) + 1;
+
+      if (req.session.loginAttempts >= 5) {
+        req.session.lockUntil = Date.now() + (5 * 60 * 1000);
+
+        return res.render('auth/login', {
+          error: 'Demasiados intentos fallidos. Cuenta bloqueada por 5 minutos.'
+        });
+      }
+
+      return res.render('auth/login', {
+        error: `Contraseña incorrecta. Intento ${req.session.loginAttempts} de 5.`
+      });
     }
 
     const clienteResult = await query('SELECT cod_cliente FROM CLIENTE WHERE usuario_id = ?', [usuario.cod_registro]);
@@ -47,6 +81,10 @@ async function auth(req, res) {
 
     const empleadoResult = await query('SELECT cod_empleado FROM EMPLEADO WHERE usuario_id = ?', [usuario.cod_registro]);
     const empleado_id = empleadoResult.length > 0 ? empleadoResult[0].cod_empleado : null;
+
+    // Reiniciar contador al iniciar sesión correctamente
+    req.session.loginAttempts = 0;
+    req.session.lockUntil = null;
 
     req.session.loggedin = true;
     req.session.nombre = usuario.usuario;
