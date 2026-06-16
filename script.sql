@@ -25,7 +25,7 @@ INSERT INTO METODO_PAGO (nombre, descripcion, activo) VALUES
 ('PayPal', 'Pago con billetera digital', TRUE);
 
 INSERT INTO PAIS (nombre) VALUES
-('Bolivia')
+('Bolivia');
 
 INSERT INTO DEPARTAMENTO (nombre, pais_id) VALUES
 ('La Paz', 1),

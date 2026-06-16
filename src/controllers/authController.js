@@ -93,6 +93,13 @@ async function storeUser(req, res) {
       return res.render('auth/register', { error: 'El correo ya está registrado' });
     }
 
+    // Validacion de verificacion de contraseña
+    if (data.password !== data.confirmPassword) {
+      return res.render('auth/register', {
+        error: 'Las contraseñas no coinciden.'
+      });
+    }
+
     //Validacion de contraseña segura
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#_-])[A-Za-z\d@$!%*?&.#_-]{8,}$/;
 
@@ -102,7 +109,7 @@ async function storeUser(req, res) {
           'La contraseña debe tener mínimo 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial.'
       });
     }
-
+    
     const hashedPassword = await bcrypt.hash(data.password, 8);
 
     const registro = {
@@ -122,7 +129,7 @@ async function storeUser(req, res) {
     req.session.role = 1;
     req.session.cod_registro = usuario_id;
     req.session.rolNombre = 'Cliente';
-    req.session.cliente_id = null; 
+    req.session.cliente_id = null;
 
     res.redirect('/home');
 
