@@ -120,6 +120,15 @@ function register(req, res) {
 async function storeUser(req, res) {
   const data = req.body;
 
+  // Validación de formato de correo
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(data.email)) {
+    return res.render('auth/register', {
+      error: 'Ingrese un correo electrónico válido.'
+    });
+  }
+  
   try {
     const getConnection = util.promisify(req.getConnection).bind(req);
     const conn = await getConnection();
