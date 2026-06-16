@@ -35,7 +35,12 @@ app.use(session({
     secret: process.env.SESSION_SECRET || 'tuClaveSecretaSegura123',
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 24 * 60 * 60 * 1000 } // 1 día
+    cookie: { 
+        maxAge: 24 * 60 * 60 * 1000, // 1 día
+        httpOnly: true, // Previene acceso desde JavaScript (XSS)
+        secure: process.env.NODE_ENV === 'production', // Solo HTTPS en producción
+        sameSite: 'strict' // Previene CSRF
+    }
 }));
 
 // Protección CSRF para formularios POST
