@@ -57,9 +57,9 @@ async function auth(req, res) {
     req.session.empleado_id = empleado_id;
 
     // Redireccionar según rol
-    if (usuario.rol_id == 3) {
+    if (usuario.rol_id === 3) {
       res.redirect('/admin/dashboard');
-    } else if (usuario.rol_id == 2) {
+    } else if (usuario.rol_id === 2) {
       res.redirect('/empleado/dashboard');
     } else {
       res.redirect('/home');
