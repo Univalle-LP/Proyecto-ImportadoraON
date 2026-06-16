@@ -120,6 +120,10 @@ function register(req, res) {
 async function storeUser(req, res) {
   const data = req.body;
 
+  // Limpieza y normalización de datos
+  data.usuario = data.usuario.trim();
+  data.email = data.email.trim().toLowerCase();
+
   // Validación de nombre de usuario
   const usuarioRegex = /^[a-zA-Z0-9_]{4,20}$/;
 
