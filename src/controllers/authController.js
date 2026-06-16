@@ -93,6 +93,16 @@ async function storeUser(req, res) {
       return res.render('auth/register', { error: 'El correo ya está registrado' });
     }
 
+    //Validacion de contraseña segura
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#_-])[A-Za-z\d@$!%*?&.#_-]{8,}$/;
+
+    if (!passwordRegex.test(data.password)) {
+      return res.render('auth/register', {
+        error:
+          'La contraseña debe tener mínimo 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial.'
+      });
+    }
+
     const hashedPassword = await bcrypt.hash(data.password, 8);
 
     const registro = {
