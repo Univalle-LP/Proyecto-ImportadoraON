@@ -12,18 +12,30 @@ function isLoggedIn(req, res, next) {
     return res.redirect('/');
   }
   
-  function isAdmin(req, res, next) {
-    if (req.session.role === 3) {
-      return next();
-    }
-    return res.status(403).send('Acceso denegado');
-  }
+  const ACCESS_DENIED = 'Acceso denegado';
 
-  function isEmpleado(req, res, next) {
-  if (req.session.role === 2) {
+function isAdmin(req, res, next) {
+  if (req.session?.role === 3) {
     return next();
   }
-  return res.status(403).send('Acceso denegado');
+
+  console.warn(
+    `[AUDITORIA] Acceso denegado a administrador: usuario=${req.session?.nombre || 'anonimo'}`
+  );
+
+  return res.status(403).send(ACCESS_DENIED);
+}
+
+function isEmpleado(req, res, next) {
+  if (req.session?.role === 2) {
+    return next();
+  }
+
+  console.warn(
+    `[AUDITORIA] Acceso denegado a empleado: usuario=${req.session?.nombre || 'anonimo'}`
+  );
+
+  return res.status(403).send(ACCESS_DENIED);
 }
   module.exports = {
     isLoggedIn,
