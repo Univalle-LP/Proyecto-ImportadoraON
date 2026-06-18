@@ -141,15 +141,11 @@ function admindashboard(req, res) {
 
 // Dashboard del empleado
 function empleadodashboard(req, res) {
-  if (req.session.loggedin && req.session.role === 2) {
-    res.render('empleado/dashboard', {
-      nombre: req.session.nombre,
-      rol: req.session.rolNombre,
-      active: { dashboard: true }
-    });
-  } else {
-    res.redirect('/login');
-  }
+  res.render('empleado/dashboard', {
+    nombre: req.session.nombre,
+    rol: req.session.rolNombre,
+    active: { dashboard: true }
+  });
 }
 
 // Home del cliente
