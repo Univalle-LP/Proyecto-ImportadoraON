@@ -57,14 +57,13 @@ async function auth(req, res) {
     req.session.empleado_id = empleado_id;
 
     // Redireccionar según rol
-    if (usuario.rol_id === 3) {
-      res.redirect('/admin/dashboard');
-    } else if (usuario.rol_id === 2) {
-      res.redirect('/empleado/dashboard');
-    } else {
-      res.redirect('/home');
-    }
+  const roleRedirects = {
+  3: '/admin/dashboard',
+  2: '/empleado/dashboard',
+  1: '/home'
+};
 
+res.redirect(roleRedirects[usuario.rol_id] || '/home');
   } catch (err) {
     console.error('Error en autenticación:', err);
     res.status(500).render('auth/login', { error: 'Error del servidor' });
